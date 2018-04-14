@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+int const maxn=1000009;
+int n,a,b,p,parent[maxn],ran[maxn];
+int find(int x)
+{
+	if(parent[x]!=x)
+		parent[x]=find(parent[x]);
+	return parent[x];
+}
+void unio(int x, int y)
+{
+	a=find(x);
+	b=find(y);
+	if(a==b)
+		return;
+	if(ran[a]<ran[b])
+		parent[a]=b;
+	else
+		parent[b]=a;
+	if(ran[a]==ran[b])
+		ran[a]++;
+}
+int main()
+{
+	cin>>n;
+	for(int i=1;i<=1000000;i++)
+		parent[i]=i;
+	for(int i=1;i<=n;i++)
+	{
+		cin>>p>>a;
+		if(p==0)
+		{
+			cout<<find(a)<<"\n";
+		}
+		else
+		{
+			cin>>b;
+			unio(a,b);
+		}
+		
+	}
+}
